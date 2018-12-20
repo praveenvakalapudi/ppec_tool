@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using PPECTool.Repository.Interfaces;
 
 namespace PPECTool.API.Controllers
 {
@@ -10,10 +11,18 @@ namespace PPECTool.API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        public ISampleRepository _sampleRepository { get; set; }
+
+        public ValuesController(ISampleRepository sampleRepository)
+        {
+            _sampleRepository = sampleRepository;
+        }
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            _sampleRepository.GetSampleRecords();
             return new string[] { "value1", "value2" };
         }
 
