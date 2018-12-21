@@ -9,5 +9,6 @@ namespace PPECTool.Repository.Interfaces
     public interface ISampleRepository
     {
         List<SampleModel> GetSampleRecords();
+        SampleModel AddSampleRecords(SampleModel obj);
     }
 }

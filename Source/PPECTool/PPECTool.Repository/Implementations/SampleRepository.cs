@@ -78,5 +78,33 @@ namespace PPECTool.Repository.Implementations
             }
             return lstSampleModel;
         }
+
+        public SampleModel AddSampleRecords(SampleModel obj)
+        {
+            List<SampleModel> lstSampleModel = new List<SampleModel>();
+            DataTable dt = new DataTable();
+            try
+            {
+                string connectionString = GetConnectionString();
+                SqlConnection conn = new SqlConnection(connectionString);
+                if (conn.State != ConnectionState.Closed)
+                    conn.Open();
+                //INSERT
+                SqlCommand command = conn.CreateCommand();
+                command.CommandTimeout = 0;
+                string sql = "INSERT INTO Sample(Name, IsActive) values('@Name', @IsActive)";
+                command.CommandText = sql;
+                command.Parameters.AddWithValue("@Name", obj.Name);
+                command.Parameters.AddWithValue("@Name", obj.IsActive);
+                SqlDataAdapter da = new SqlDataAdapter(sql, conn);
+                da.Fill(dt);
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return obj;
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using PPECTool.Models;
 using PPECTool.Repository.Interfaces;
 
 namespace PPECTool.API.Controllers
@@ -22,6 +23,10 @@ namespace PPECTool.API.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            SampleModel objSample = new SampleModel();
+            objSample.Name = "SampleName";
+            objSample.IsActive = true;
+            _sampleRepository.AddSampleRecords(objSample);
             _sampleRepository.GetSampleRecords();
             return new string[] { "value1", "value2" };
         }
