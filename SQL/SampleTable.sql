@@ -1,7 +1,7 @@
 CREATE TABLE Sample (
     Id int NOT NULL IDENTITY(1,1),
     Name varchar(255) NOT NULL,
-    IsActive bit,
+    Email varchar(255) NOT NULL,
     PRIMARY KEY (Id)
 );
 

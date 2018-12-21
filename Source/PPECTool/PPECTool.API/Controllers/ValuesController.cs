@@ -25,7 +25,8 @@ namespace PPECTool.API.Controllers
         {
             SampleModel objSample = new SampleModel();
             objSample.Name = "SampleName";
-            objSample.IsActive = true;
+            objSample.Email = "p@p.com";
+            objSample.Mobile = "1234567890";
             _sampleRepository.AddSampleRecords(objSample);
             _sampleRepository.GetSampleRecords();
             return new string[] { "value1", "value2" };

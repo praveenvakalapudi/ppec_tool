@@ -58,14 +58,15 @@ namespace PPECTool.Repository.Implementations
                 command.CommandText = sql;
                 SqlDataAdapter da = new SqlDataAdapter(sql, conn);
                 da.Fill(dt);
-                if(dt!=null && dt.Rows.Count>0)
+                if (dt != null && dt.Rows.Count > 0)
                 {
-                    for(var i=0;i<dt.Rows.Count;i++)
+                    for (var i = 0; i < dt.Rows.Count; i++)
                     {
                         SampleModel objSampleModel = new SampleModel();
                         objSampleModel.Id = Convert.ToInt32(dt.Rows[i]["Id"]);
                         objSampleModel.Name = Convert.ToString(dt.Rows[i]["Name"]);
-                        objSampleModel.IsActive = Convert.ToBoolean(dt.Rows[i]["IsActive"]);
+                        objSampleModel.Email = Convert.ToString(dt.Rows[i]["Email"]);
+                        objSampleModel.Mobile = Convert.ToString(dt.Rows[i]["Mobile"]);
                         lstSampleModel.Add(objSampleModel);
                     }
                 }
@@ -78,7 +79,6 @@ namespace PPECTool.Repository.Implementations
             }
             return lstSampleModel;
         }
-
         public SampleModel AddSampleRecords(SampleModel obj)
         {
             List<SampleModel> lstSampleModel = new List<SampleModel>();
@@ -87,17 +87,18 @@ namespace PPECTool.Repository.Implementations
             {
                 string connectionString = GetConnectionString();
                 SqlConnection conn = new SqlConnection(connectionString);
-                if (conn.State != ConnectionState.Closed)
+                if (conn.State == ConnectionState.Closed)
                     conn.Open();
                 //INSERT
-                SqlCommand command = conn.CreateCommand();
+                SqlCommand command = new SqlCommand();
+                command.Connection = conn;
                 command.CommandTimeout = 0;
-                string sql = "INSERT INTO Sample(Name, IsActive) values('@Name', @IsActive)";
+                string sql = "INSERT INTO Sample(Name, Email, Mobile) values(@Name, @Email, @Mobile);";
                 command.CommandText = sql;
                 command.Parameters.AddWithValue("@Name", obj.Name);
-                command.Parameters.AddWithValue("@Name", obj.IsActive);
-                SqlDataAdapter da = new SqlDataAdapter(sql, conn);
-                da.Fill(dt);
+                command.Parameters.AddWithValue("@Email", obj.Email);
+                command.Parameters.AddWithValue("@Mobile", obj.Mobile);
+                command.ExecuteNonQuery();
                 conn.Close();
             }
             catch (Exception ex)
