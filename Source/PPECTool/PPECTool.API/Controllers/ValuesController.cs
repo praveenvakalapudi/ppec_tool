@@ -23,12 +23,7 @@ namespace PPECTool.API.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            SampleModel objSample = new SampleModel();
-            objSample.Name = "SampleName";
-            objSample.Email = "p@p.com";
-            objSample.Mobile = "1234567890";
-            _sampleRepository.AddSampleRecords(objSample);
-            _sampleRepository.GetSampleRecords();
+            //_sampleRepository.GetSampleRecords();
             return new string[] { "value1", "value2" };
         }
 
@@ -41,10 +36,24 @@ namespace PPECTool.API.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        [Route("api/InsertSample")]
+        public IActionResult Post([FromBody] SampleModel objSample)
         {
+            //SampleModel objSample = new SampleModel();
+            //objSample.Name = "SampleName";
+            //objSample.Email = "p@p.com";
+            //objSample.Mobile = "1234567890";
+            var result = _sampleRepository.AddSampleRecords(objSample);
+            return Ok(result);
         }
 
+        [HttpGet]
+        [Route("api/GetSampleData")]
+        public IActionResult GetSampleData()
+        {
+            var result=_sampleRepository.GetSampleRecords();
+            return Ok(result);
+        }
         // PUT api/values/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
