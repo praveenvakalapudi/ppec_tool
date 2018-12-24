@@ -1,3 +1,4 @@
+<input type="button" value="Get Data" (click)="getMyData()"/><br>
 All User Information<br>
 <table class="table">
   <tr>
@@ -14,6 +15,7 @@ All User Information<br>
 
 <hr>
 
-Name <input type="text"/><br>
-Email <input type="text"/><br>
-Mobile <input type="text"/><br>
+Name <input type="text" [(ngModel)]="SampleDataModel.Name"/><br>
+Email <input type="text" [(ngModel)]="SampleDataModel.Email"/><br>
+Mobile <input type="text" [(ngModel)]="SampleDataModel.Mobile"/><br>
+<input type="button" value="Save" (click)="SaveInfo()"/>

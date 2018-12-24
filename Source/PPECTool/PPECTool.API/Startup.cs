@@ -46,6 +46,10 @@ namespace PPECTool.API
                 app.UseHsts();
             }
             //app.UseMiddleware(typeof(CorsMiddleware));
+            app.UseCors(corsPolicyBuilder =>
+            corsPolicyBuilder.WithOrigins("http://localhost:4200")
+            .AllowAnyMethod()
+            .AllowAnyHeader());
             app.UseHttpsRedirection();
             app.UseMvc();
         }

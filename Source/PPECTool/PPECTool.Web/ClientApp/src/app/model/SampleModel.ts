@@ -1,6 +1,6 @@
-export interface ISample{
-    id:Number,
-    name:string,
-    email:string,
-    mobile:string
+export class SampleModel{
+    Id:Number=0;
+    Name:string="";
+    Email:string="";
+    Mobile:string="";
 }

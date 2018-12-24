@@ -9,6 +9,7 @@ using PPECTool.Repository.Interfaces;
 
 namespace PPECTool.API.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class SampleController : ControllerBase
@@ -32,10 +33,13 @@ namespace PPECTool.API.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody]SampleModel model)
+        //[Route("api/SaveSampleInfo")]
+        public IActionResult Post([FromBody]SampleModel model)
         {
             _sampleRepository.AddSampleRecords(model);
+            return Ok(model);
         }
+        
 
     }
 }
